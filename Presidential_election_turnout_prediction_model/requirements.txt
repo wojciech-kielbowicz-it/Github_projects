@@ -1,0 +1,10 @@
+Modules: 
+pandas
+numpy
+seaborn
+matplotlib.pyplot
+pmdarima
+joblib
+functools
+pyarrow
+fastparquet
