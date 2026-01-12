@@ -1,4 +1,5 @@
-Modules: 
+Modules:
+
 pandas
 numpy
 seaborn
@@ -6,6 +7,14 @@ matplotlib.pyplot
 pmdarima
 joblib
 functools
+warnings
+xgboost
+scikit-learn
+folium
+geopandas
+
+Engines:
+
 pyarrow
 fastparquet
-warnings
+
