@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import pmdarima as pm
 
 
 def extrapolate_1999_data(dataframe: pd.DataFrame, indicators_list: list) -> pd.DataFrame:
@@ -141,3 +141,74 @@ def merge_election_data(df_election: pd.DataFrame, df_features: pd.DataFrame, ta
     )
     
     return df_final
+
+
+def forecast_arima_to_2030(terc_code: str, dataframe: pd.DataFrame, indicators_list: list, years_list: list) -> list:
+    """
+    Generates forecasts for specified economic indicators up to the year 2030 using ARIMA models.
+
+    This function isolates data for a single county (identified by `terc_code`), fits an 
+    `auto_arima` model for each indicator in `indicators_list` based on historical data, 
+    and predicts values for the specified `target_years`.
+
+    Args:
+        terc_code (str): The unique TERC identification code for the county.
+        dataframe (pd.DataFrame): The input DataFrame containing historical data. 
+            Must include "terc_code", "county", "year", and the indicator columns.
+        indicators_list (list): A list of strings representing the column names of the 
+            economic indicators to be forecasted (e.g., ["gdp_per_capita", "average_gross_salary"]).
+        target_years (list): A list of integers representing the future years for which 
+            forecasts should be generated.
+
+    Returns:
+        list[dict]: A list of dictionaries, where each dictionary contains the forecasted 
+            data for a specific year. Each dictionary includes keys for "terc_code", "county", 
+            "year", and the predicted values for each indicator in `indicators_list`.
+    """
+    county_data = dataframe[dataframe["terc_code"] == terc_code].sort_values("year")
+
+    county_name = county_data["county"].iloc[0]
+    
+    forecasts_by_year = {
+        year: {
+            "terc_code": terc_code, 
+            "county": county_name, 
+            "year": year
+        } for year in years_list
+    }
+    
+    for col in indicators_list:
+
+        ts = county_data.set_index("year")[col].dropna()
+
+        predictions = []
+    
+
+        model = pm.auto_arima(
+            ts,
+            start_p= 0, 
+            start_q= 0,
+            max_p= 2, 
+            max_q= 2, 
+            max_order= 3, 
+            d= None, 
+            test= "kpss", 
+            seasonal= False,         
+            stepwise= True, 
+            maxiter= 15, 
+            method= "nm",  
+            error_action= "ignore",
+            suppress_warnings= True,
+            trace= False, 
+            n_jobs= 1
+        )
+        
+        predictions = model.predict(n_periods=len(years_list))
+             
+        for i, year in enumerate(years_list):
+            val = predictions.iloc[i] if hasattr(predictions, "iloc") else predictions[i]
+            forecasts_by_year[year][col] = val
+            
+
+    return list(forecasts_by_year.values())
+
