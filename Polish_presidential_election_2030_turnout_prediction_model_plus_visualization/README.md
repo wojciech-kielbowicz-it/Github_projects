@@ -2,7 +2,7 @@ Polish Presidential Election 2030 Turnout Prediction Model + Folium Visualizatio
 __________________________________________________________________________________________________________________
 License: MIT
 Kernel: Python 3.13.9
-All modules used in this projects are listed in REQUIREMENTS.txt
+All modules used in this projects are listed in requirements.txt
 __________________________________________________________________________________________________________________
 Project Goals:
 

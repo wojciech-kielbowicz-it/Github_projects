@@ -8,4 +8,4 @@ supplementing my skills and knowledge with new aspects.
 
 I wish you pleasant browsing and best regards, 
                                                                                                                                                       
-Wojciech Kiełbowicz
+Wojciech Kiełbowicz.
