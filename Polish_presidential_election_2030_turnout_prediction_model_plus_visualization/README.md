@@ -58,7 +58,8 @@ Project Structure:
 ├── Data
 │   ├── Raw          
 │   └── Processed      
-├── Notebooks          
+├── Notebooks
+├── Visualization         
 ├── README.md
 ├── LICENSE.txt
 └── requirements.txt
