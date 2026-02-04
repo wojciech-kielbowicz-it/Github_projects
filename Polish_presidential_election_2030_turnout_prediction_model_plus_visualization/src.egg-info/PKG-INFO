@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: src
+Version: 0.1.0
+Summary: Polish presidential_election_turnout_prediction_model_plus_visualization
+Author: Wojciech Kiełbowicz
+License: MIT
+License-File: LICENSE.txt
+Dynamic: author
+Dynamic: license
+Dynamic: license-file
+Dynamic: summary
