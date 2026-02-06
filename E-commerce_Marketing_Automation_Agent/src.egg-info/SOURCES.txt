@@ -1,3 +1,5 @@
+LICENSE
+NOTICE
 setup.py
 src/__init__.py
 src/database_methods.py

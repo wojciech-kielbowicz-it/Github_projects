@@ -4,7 +4,7 @@ setup(
     name='src',
     packages=find_packages(),
     version='0.1.0',
-    description='Ecommerce Churn Sentinel: SQL-Based ETL & AI Prediction System',
+    description='E-commerce Marketing Automation Agent',
     author='Wojciech Kiełbowicz',
-    license='CC BY-NC-SA 4.0',
+    license='Apache 2.0',
 )
