@@ -2,7 +2,7 @@ from huggingface_hub import InferenceClient
 import pandas as pd
 import time
 
-def generate_email(row: pd.Series, prompt: dict) -> str:
+def generate_email(row: pd.Series, client: InferenceClient, prompt: dict) -> str:
     segment = row["segmentation"]
     instruction = prompt[segment]
     try:
