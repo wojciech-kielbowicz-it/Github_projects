@@ -18,7 +18,6 @@ def generate_email(row: pd.Series, client: InferenceClient, prompt: dict) -> str
                     """
                 }
             ],
-            max_tokens=350, 
             temperature=0.7
 
         )
