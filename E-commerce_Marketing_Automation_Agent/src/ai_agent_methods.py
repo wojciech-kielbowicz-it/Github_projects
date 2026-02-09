@@ -11,10 +11,14 @@ def generate_email(row: pd.Series, client: InferenceClient, prompt: dict) -> str
             messages=[
                 {
                     "role": "user",
-                    "content": f"{instruction} Customer ID: {row['customer_id']}"
+                    "content": f"""{instruction}\n
+                    Constraint: Use store name 'Wojciech Kiełbowicz & Co'. 
+                    Never use square brackets like [Name].\n
+                    Customer ID: {row['customer_id']}
+                    """
                 }
             ],
-            max_tokens=150, 
+            max_tokens=350, 
             temperature=0.7
 
         )
