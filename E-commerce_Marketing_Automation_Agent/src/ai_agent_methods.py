@@ -19,7 +19,6 @@ def generate_email(row: pd.Series, client: InferenceClient, prompt: dict[str, st
                 }
             ],
             temperature=0.7
-
         )
         email: str = completion.choices[0].message.content
         time.sleep(1)
