@@ -4,18 +4,29 @@ import time
 
 def generate_email(row: pd.Series, client: InferenceClient, prompt: dict[str, str]) -> str:
     segment: str = row["segmentation"]
+
     instruction: str = prompt[segment]
+
+    formatted_prompt: str = f"""
+    ROLE: You are an expert Email Marketer for the store 'Wojciech Kiełbowicz & Co'.
+    GOAL: Write a warm, professional email based on this idea: "{instruction}"
+    
+    STRICT WRITING RULES:
+    1. OPENING: Start the email EXACTLY with: "Dear Customer {row['customer_id']},"
+    2. BODY: Write 2-3 short paragraphs. Use double new lines (\\n\\n) between paragraphs to ensure readability.
+    3. ENDING: Sign off EXACTLY as:
+       "Best regards,
+       The Wojciech Kiełbowicz & Co Team"
+    4. PROHIBITED: Do NOT use placeholders like [Name], [Date], or [ID]. Do NOT use square brackets text at all.
+    """
+
     try:
         completion = client.chat.completions.create(
-            model="HuggingFaceH4/zephyr-7b-beta:featherless-ai",
+            model="openai/gpt-oss-120b:groq",
             messages=[
                 {
                     "role": "user",
-                    "content": f"""{instruction}\n
-                    Constraint: Use store name 'Wojciech Kiełbowicz & Co'. 
-                    Never use square brackets like [Name].\n
-                    Customer ID: {row['customer_id']}
-                    """
+                    "content": formatted_prompt
                 }
             ],
             temperature=0.7
