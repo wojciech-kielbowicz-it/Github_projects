@@ -1,8 +1,8 @@
-from huggingface_hub import InferenceClient
+from groq import Groq
 import pandas as pd
 import time
 
-def generate_email(row: pd.Series, client: InferenceClient, prompt: dict[str, str]) -> str:
+def generate_email(row: pd.Series, client: Groq, prompt: dict[str, str]) -> str:
     segment: str = row["segmentation"]
 
     instruction: str = prompt[segment]
@@ -22,7 +22,7 @@ def generate_email(row: pd.Series, client: InferenceClient, prompt: dict[str, st
 
     try:
         completion = client.chat.completions.create(
-            model="openai/gpt-oss-120b:groq",
+            model="openai/gpt-oss-120b",
             messages=[
                 {
                     "role": "user",
